@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "508977882889",
+    "firebase_url": "https://amica-375de.firebaseio.com",
+    "project_id": "amica-375de",
+    "storage_bucket": "amica-375de.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:508977882889:android:af2f848bb14fbd706055d8",
+        "android_client_info": {
+          "package_name": "com.example.cafe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "508977882889-k09hg7tq6vav6a4uker0gii3a0hpkaag.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7YTsA2VwG_CaNuMdyuDZBokd12YvOty0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "508977882889-k09hg7tq6vav6a4uker0gii3a0hpkaag.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:508977882889:android:6bcd1c057d9a01b26055d8",
+        "android_client_info": {
+          "package_name": "com.example.chat_app_example"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "508977882889-k09hg7tq6vav6a4uker0gii3a0hpkaag.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7YTsA2VwG_CaNuMdyuDZBokd12YvOty0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "508977882889-k09hg7tq6vav6a4uker0gii3a0hpkaag.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
