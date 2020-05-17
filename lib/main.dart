@@ -1,7 +1,9 @@
 import 'package:chat_app_example/chat/all_users_screen.dart';
+import 'package:chat_app_example/chat/chat_screen.dart';
 import 'package:chat_app_example/photosData.dart';
 
 import 'package:chat_app_example/res.dart';
+import 'package:chat_app_example/ui%20only.dart';
 import 'package:chat_app_example/views/SignUpScreen.dart';
 import 'package:chat_app_example/views/SplashScreen.dart';
 import 'package:chat_app_example/views/faceid.dart';
@@ -23,13 +25,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Amica',
       theme: ThemeData(
-        primaryColor: Colors.redAccent
+        primaryColor: Colors.redAccent,
       ),
-      home:  FacePage(),
+      home:  SplashScreen(),
       routes: {
         Registration.id: (context) => Registration(),
         Login.id: (context) => Login(),Imformation.id: (context) => Imformation(),
-
         Chat.id: (context) => Chat(),
         Gender.id:(context)=>Gender(),
         SplashScreen.id: (context) => SplashScreen(),

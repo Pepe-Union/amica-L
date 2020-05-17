@@ -98,8 +98,8 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.name),
+        appBar: AppBar(backgroundColor: Colors.white,elevation: 0,
+          title: Text(widget.name,style: TextStyle(color: Colors.black),),
         ),
         body: Form(
           key: _formKey,

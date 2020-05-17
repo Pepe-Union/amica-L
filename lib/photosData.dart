@@ -4,6 +4,9 @@ import 'package:chat_app_example/chat/all_users_screen.dart';
 import 'package:chat_app_example/chat/home_page.dart';
 import 'package:chat_app_example/chat/startingChat.dart';
 import 'package:chat_app_example/inbox.dart';
+import 'package:chat_app_example/services/authservice.dart';
+import 'package:chat_app_example/ui%20only.dart';
+import 'package:chat_app_example/views/faceid.dart';
 import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
@@ -11,6 +14,8 @@ import 'package:firebase_storage/firebase_storage.dart'; // For File Upload To F
 
 import 'package:image_picker/image_picker.dart'; // For Image Picker
 import 'package:path/path.dart' as Path1;
+
+
 class MyHome extends StatefulWidget {
   @override
   _MyHomeState createState() => _MyHomeState();
@@ -21,29 +26,29 @@ class _MyHomeState extends State<MyHome> {
   final List<Widget> _children = [
     MyApp(),
     MyHomePage(),
-    VoiceUpload()
+    Voicechat()
   ];
 
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    return Scaffold(
+    return Scaffold(backgroundColor: Colors.white,
       body: _children[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: BottomNavigationBar(backgroundColor: Colors.white,
         onTap: onTabTapped,
         currentIndex: _currentIndex,
         items: [
           BottomNavigationBarItem(
-              title: Image(image: AssetImage('assets/images/chat0.png'),height: height/8,),
+              title: Image(image: AssetImage('assets/images/chat0.png'),height: height/9,),
               icon: Icon(Icons.call,color: Colors.transparent,size:0 ,)
           ),
           BottomNavigationBarItem(
-              title: Image(image: AssetImage('assets/images/music.png'),height: height/8,),
+              title: Image(image: AssetImage('assets/images/music.png'),height: height/9,),
               icon: Icon(Icons.call,color: Colors.transparent,size:0 ,)
           ),
           BottomNavigationBarItem(
-              title: Image(image: AssetImage('assets/images/mic.png'),height: height/8,),
+              title: Image(image: AssetImage('assets/images/mic.png'),height: height/9,),
               icon: Icon(Icons.call,color: Colors.transparent,size:0 ,)
           ),
 
@@ -79,6 +84,7 @@ class MatchCard {
     margin = marginTop;
   }
 }
+
 
 class MyHomePage extends StatefulWidget {
   static const String id = "Cards";
@@ -134,79 +140,81 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    return Scaffold(
+    return Scaffold(backgroundColor: Colors.white,
 
       appBar: AppBar(elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.menu),
           color: Colors.redAccent,
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {return Preferences();}), ModalRoute.withName('/'));
+          },
         ),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.call),
             color: Colors.red,
-            onPressed: () {},
+            onPressed: () {
+              AuthService().signOut();
+            },
           ),
         ],
         backgroundColor: Colors.white,
       ),
-      body: Scaffold(
-          backgroundColor: Colors.white,
-          body: Center(
-            child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: ListView(
+        children: <Widget>[
+          Padding(
+            padding:  EdgeInsets.all(height/30),
+            child: Column(
               children: <Widget>[
-                Padding(
-                  padding:EdgeInsets.only(left: width/12,right: width/12),
-                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Container(height: height/15,width: width/6,
-                        child: Card(shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                          child: Image(
-                            image: AssetImage("assets/images/a1.jpeg"),
-                          ),
+                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Container(height: height/15,width: width/6,
+                      child: Card(shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
+                        child: Image(
+                          image: AssetImage("assets/images/a1.jpeg"),
                         ),
                       ),
-                      Container(height: height/15,width: width/6,
-                        child: Card(shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                          child: Image(
-                            image: AssetImage("assets/images/a1.jpeg"),
-                          ),
+                    ),
+                    Container(height: height/15,width: width/6,
+                      child: Card(shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
+                        child: Image(
+                          image: AssetImage("assets/images/a1.jpeg"),
                         ),
                       ),
-                      Container(height: height/15,width: width/6,
-                        child: Card(shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                          child: Image(
-                            image: AssetImage("assets/images/a1.jpeg"),
-                          ),
+                    ),
+                    Container(height: height/15,width: width/6,
+                      child: Card(shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
+                        child: Image(
+                          image: AssetImage("assets/images/a1.jpeg"),
                         ),
                       ),
-                      Container(height: height/15,width: width/6,
-                        child: Card(shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                          child: Image(
-                            image: AssetImage("assets/images/a1.jpeg"),
-                          ),
+                    ),
+                    Container(height: height/15,width: width/6,
+                      child: Card(shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
+                        child: Image(
+                          image: AssetImage("assets/images/a1.jpeg"),
                         ),
                       ),
-                      Container(height: height/15,width: width/6,
-                        child: Card(shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                          child: Image(
-                            image: AssetImage("assets/images/a1.jpeg"),
-                          ),
+                    ),
+                    Container(height: height/15,width: width/6,
+                      child: Card(shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
+                        child: Image(
+                          image: AssetImage("assets/images/a1.jpeg"),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
                 Container(height: height/2,width: width,
                   child: Center(
@@ -216,54 +224,140 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(left: width/10,right: width/10),
-                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text('Name\nDist',style: TextStyle(fontSize: height/40,fontWeight: FontWeight.bold),),
-                      IconButton(
-                        icon: Icon(Icons.share,color: Colors.redAccent,),
-                        onPressed: (){},
-                      )
-                    ],
+                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text('Xyz\n11 km away',style: TextStyle(fontSize: height/40,fontWeight: FontWeight.bold),),
+                    IconButton(
+                      icon: Icon(Icons.share,color: Colors.redAccent,),
+                      onPressed: (){},
+                    )
+                  ],
 
-                  ),
                 ),
                 Row(mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Container(height: height/12,width: width/6,
-                      child: Card(shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25.0),
-                      ),
-                        child: Image(
-                          image: AssetImage("assets/images/rewind.png"),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {return Credits();}), ModalRoute.withName('/'));
+                        },
+                        child: Card(shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                        ),
+                          child: Image(
+                            image: AssetImage("assets/images/rewind.png"),
+                          ),
                         ),
                       ),
                     ), SizedBox(width: width/20,),
                     Container(height: height/12,width: width/6,
+                      child: InkWell(
+                        onLongPress: () {
+                          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {return Shortlisted();}), ModalRoute.withName('/'));
+                        },
+                        onTap:() {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(backgroundColor: Colors.white,
+                                  content: Padding(
+                                    padding:  EdgeInsets.all(height/40),
+                                    child: new Text("Shortlisted",style: TextStyle(color: Colors.redAccent,fontSize: height/27,fontWeight: FontWeight.bold),),
+                                  ),
+                                  actions: <Widget>[
+                                    // usually buttons at the bottom of the dialog
+                                    new FlatButton(
+                                      child: new Text("Continue",style: TextStyle(color: Colors.redAccent),),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+
                       child: Card(shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25.0),
-                      ),
-                        child: Image(
-                          image: AssetImage("assets/images/chart.png"),
+                          borderRadius: BorderRadius.circular(25.0),
+                        ),
+                          child: Image(
+                            image: AssetImage("assets/images/chart.png"),
+                          ),
                         ),
                       ),
                     ),SizedBox(width: width/20,),
                     Container(height: height/12,width: width/6,
-                      child: Card(shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25.0),
-                      ),
-                        child: Image(
-                          image: AssetImage("assets/images/sat.png"),
+                      child: InkWell(
+                        onLongPress: () {
+                          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {return Liked();}), ModalRoute.withName('/'));
+                        },
+                        onTap:() {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              // return object of type Dialog
+                              return AlertDialog(backgroundColor: Colors.white,
+                                content: Padding(
+                                  padding:  EdgeInsets.all(height/40),
+                                  child: new Text("Liked",style: TextStyle(color: Colors.redAccent,fontSize: height/27,fontWeight: FontWeight.bold),),
+                                ),
+                                actions: <Widget>[
+                                  // usually buttons at the bottom of the dialog
+                                  new FlatButton(
+                                    child: new Text("Continue",style: TextStyle(color: Colors.redAccent),),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                        child: Card(shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                        ),
+                          child: Image(
+                            image: AssetImage("assets/images/sat.png"),
+                          ),
                         ),
                       ),
                     ),SizedBox(width: width/20,),
                     Container(height: height/12,width: width/6,
-                      child: Card(shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25.0),
-                      ),
-                        child: Image(
-                          image: AssetImage("assets/images/trash.png"),
+                      child: InkWell(
+                        onLongPress: () {
+                          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {return Dismissed();}), ModalRoute.withName('/'));
+                        },
+                        onTap:() {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              // return object of type Dialog
+                              return AlertDialog(backgroundColor: Colors.white,
+                                content: Padding(
+                                  padding:  EdgeInsets.all(height/40),
+                                  child: new Text("Dismissed",style: TextStyle(color: Colors.redAccent,fontSize: height/27,fontWeight: FontWeight.bold),),
+                                ),
+                                actions: <Widget>[
+                                  // usually buttons at the bottom of the dialog
+                                  new FlatButton(
+                                    child: new Text("Continue",style: TextStyle(color: Colors.redAccent),),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                        child: Card(shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                        ),
+                          child: Image(
+                            image: AssetImage("assets/images/trash.png"),
+                          ),
                         ),
                       ),
                     ),SizedBox(width: width/20,),
@@ -272,7 +366,8 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
           )
-      ),
+        ],
+      )
     );
   }
 
@@ -288,31 +383,7 @@ class _MyHomePageState extends State<MyHomePage> {
       {"title": "sea Food", "pic": "assets/images/a9.jpeg"},
       {"title": "Fast Foods", "pic": "assets/images/a11.jpeg"},
       {"title": "Shushi", "pic": "assets/images/a14.jpeg"},
-      {"title": "GYM Freak Food", "pic": "assets/images/Amica1.jpeg"},
-      {"title": "GYM Freak Food", "pic": "assets/images/Amica2.jpeg"},
-      {"title": "GYM Freak Food", "pic": "assets/images/Amica3.jpeg"},
-      {"title": "GYM Freak Food", "pic": "assets/images/Amica4.jpeg"},
-      {"title": "GYM Freak Food", "pic": "assets/images/Amica5.jpeg"},
-      {"title": "GYM Freak Food", "pic": "assets/images/Amica6.jpeg"},
-      {"title": "GYM Freak Food", "pic": "assets/images/Amica7.jpeg"},
-      {"title": "GYM Freak Food", "pic": "assets/images/Amica8.jpeg"},
-      {"title": "GYM Freak Food", "pic": "assets/images/Amica9.jpeg"},
-      {"title": "GYM Freak Food", "pic": "assets/images/Amica10.jpeg"},
-      {"title": "GYM Freak Food", "pic": "assets/images/Amica11.jpeg"},
-      {"title": "GYM Freak Food", "pic": "assets/images/Amica12.jpeg"},
-      {"title": "GYM Freak Food", "pic": "assets/images/Amica13.jpeg"},
-      {"title": "GYM Freak Food", "pic": "assets/images/Amica14.jpeg"},
-      {"title": "GYM Freak Food", "pic": "assets/images/Amica14.jpeg"},
-      {"title": "GYM Freak Food", "pic": "assets/images/a18.jpeg1"},
-      {"title": "GYM Freak Food", "pic": "assets/images/Amica18.jpeg"},
-      {"title": "GYM Freak Food", "pic": "assets/images/a17.jpeg"},
       {"title": "GYM Freak Food", "pic": "assets/images/a15.jpeg"},
-      {"title": "GYM Freak Food", "pic": "assets/images/Amica16.jpeg"},
-      {"title": "GYM Freak Food", "pic": "assets/images/Amica18.jpeg"},
-      {"title": "GYM Freak Food", "pic": "assets/images/Amica19.jpeg"},
-
-
-
     ];
 
     List<MatchCard> cards = new List();
@@ -321,7 +392,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
     List<Widget> cardList = new List();
 
-    for (int x = 0; x < data.length; x++) {
+    for (int x = 0; x < 10; x++) {
       cardList.add(Positioned(
           top: 40,
           child: Draggable(
@@ -334,7 +405,7 @@ class _MyHomePageState extends State<MyHomePage> {
               _removeCard(x);
             },
             childWhenDragging: Container(
-              child: Text("Swiped",style: TextStyle(fontFamily: "Poppins2",fontSize: 30,color: Colors.red),),
+              child: Text("Abhi"),
             ),
             feedback: Card(
               elevation: 0,
@@ -342,8 +413,6 @@ class _MyHomePageState extends State<MyHomePage> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50)),
               child: Container(
-                width: 400,
-                height: 500,
                 decoration: BoxDecoration(),
                 child: Image.asset(
                   data[x]["pic"],
@@ -357,8 +426,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50)),
                 child: Container(
-                  width: 340,
-                  height: 500,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                   ),
@@ -661,12 +728,14 @@ class _VoiceUploadState extends State<VoiceUpload> {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    return Scaffold(
+    return Scaffold(backgroundColor: Colors.white,
       appBar: AppBar(elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.keyboard_backspace),
           color: Colors.red,
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {return Voice();}), ModalRoute.withName('/'));
+          },
         ),
         backgroundColor: Colors.white,
       ),
@@ -698,7 +767,9 @@ class _VoiceUploadState extends State<VoiceUpload> {
                       child: Image(
                         image: AssetImage('assets/images/mic.png'),
                       ),
-                      onPressed: () {}),
+                    onPressed: () {
+                      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {return Voice();}), ModalRoute.withName('/'));
+                    },),
                 ),
               ),
               SizedBox(height: height/20,),
@@ -749,87 +820,97 @@ class _VoiceState extends State<Voice> {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    return Scaffold(
+    return Scaffold(backgroundColor: Colors.white,
         appBar: AppBar(elevation: 0,
-          title: IconButton(
+          leading: IconButton(
             icon: Icon(Icons.keyboard_backspace),
             color: Colors.red,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {return FacePage();}), ModalRoute.withName('/'));
+            },
           ),
           backgroundColor: Colors.white,
         ),
-        body: Builder(
+        body: ListView(
+          children: <Widget>[
+            Builder(
 
-          builder: (context) => Container(
-            child: Column(
-                children: <Widget>[
+              builder: (context) => Container(
+                child: Padding(
+                  padding: EdgeInsets.all(height/30),
+                  child: Column(
+                      children: <Widget>[
 
-                  SizedBox(
-                    height: height/20,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only( right: width/3),
-                    child: Text(
-                      "Voice Description",
-                      textAlign: TextAlign.right,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 0,
-                        fontFamily: 'Poppins',
-                        fontSize: 28,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: height/16,
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Container(height: height/4,width: width/1.4,
-                      child: FlatButton(
-                          child: Image(
-                            image: AssetImage('assets/images/tick.png'),
+                        SizedBox(
+                          height: height/20,
+                        ),
+                        Align(alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Voice Description",
+                            textAlign: TextAlign.right,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 0,
+                              fontFamily: 'Poppins',
+                              fontSize: 28,
+                            ),
                           ),
-                          onPressed: () {}),
-                    ),
-                  ),
-                  SizedBox(
-                    height: height/16,
-                  ),
-                  Text(
-                    "Audio Uploaded!",
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                        letterSpacing: 0,
-                        fontFamily: 'Poppins1',
-                        color: Colors.black),
-                  ),
-                  SizedBox(
-                    height: height/8,
-                  ),
-                  Material(
-                    elevation: 0,
-                    child: MaterialButton(
-                      onPressed: () {
-                      },
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40),
-                      ),
-                      height: height/12,minWidth: width/1.3,
-                      child: Text(
-                        'Confirm',
-                        style: TextStyle(
-                            fontFamily: "Poppins",
-                            color: Colors.white,
-                            fontSize: height/35),
-                      ),
-                      splashColor: Colors.redAccent,
-                      color: Colors.redAccent,
-                    ),
-                  ),
-                ]),
-          ),
-        ));
+                        ),
+                        SizedBox(
+                          height: height/20,
+                        ),
+                        Align(
+                          alignment: Alignment.center,
+                          child: Container(height: height/4,width: width/1.4,
+                            child: FlatButton(
+                                child: Image(
+                                  image: AssetImage('assets/images/tick.png'),
+                                ),
+                                onPressed: () {}),
+                          ),
+                        ),
+                        SizedBox(
+                          height: height/20,
+                        ),
+                        Text(
+                          "Audio Uploaded!",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              letterSpacing: 0,
+                              fontFamily: 'Poppins1',
+                              color: Colors.black),
+                        ),
+                        SizedBox(
+                          height: height/12,
+                        ),
+                        Material(
+                          elevation: 0,
+                          child: MaterialButton(
+                            onPressed: () {
+                              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {return TextDesc();}), ModalRoute.withName('/'));
+                            },
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(40),
+                            ),
+                            height: height/12,minWidth: width/1.3,
+                            child: Text(
+                              'Confirm',
+                              style: TextStyle(
+                                  fontFamily: "Poppins",
+                                  color: Colors.white,
+                                  fontSize: height/35),
+                            ),
+                            splashColor: Colors.redAccent,
+                            color: Colors.redAccent,
+                          ),
+                        ),
+                      ]),
+                ),
+              ),
+            )
+          ],
+        )
+    );
   }
 }
 
@@ -843,80 +924,87 @@ class _TextDescState extends State<TextDesc> {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    return Scaffold(
+    return Scaffold(backgroundColor: Colors.white,
         appBar: AppBar(elevation: 0,
-          title: IconButton(
+          leading: IconButton(
             icon: Icon(Icons.keyboard_backspace),
             color: Colors.red,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {return Voice();}), ModalRoute.withName('/'));
+            },
           ),
           backgroundColor: Colors.white,
         ),
-        body: Builder(
+        body: ListView(
+          children: <Widget>[
+            Builder(
 
-          builder: (context) => Container(
-            child: Column(
-                children: <Widget>[
-
-                  SizedBox(
-                    height: height/8,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only( right: width/3),
-                    child: Text(
-                      "Text Description",
-                      textAlign: TextAlign.right,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 0,
-                        fontFamily: 'Poppins',
-                        fontSize: 28,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: height/16,
-                  ),
-                  Theme(
-                    data: new ThemeData(
-                      primaryColor: Colors.redAccent,
-                    ),
-                    child: TextField(
-                      obscureText: false,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderSide:  BorderSide(color: Colors.redAccent)
+              builder: (context) => Container(
+                child: Padding(
+                  padding: EdgeInsets.all(height/30),
+                  child: Column(
+                      children: <Widget>[
+                        SizedBox(
+                          height: height/20,
                         ),
-                        labelText: 'click here',
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: height/16,
-                  ),
-                  Material(
-                    elevation: 0,
-                    child: MaterialButton(
-                      onPressed: () {
-                      },
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40),
-                      ),
-                      height: height/12,minWidth: width/1.3,
-                      child: Text(
-                        'Confirm',
-                        style: TextStyle(
-                            fontFamily: "Poppins",
-                            color: Colors.white,
-                            fontSize: height/35),
-                      ),
-                      splashColor: Colors.redAccent,
-                      color: Colors.redAccent,
-                    ),
-                  ),
-                ]),
-          ),
-        ));
+                        Text(
+                          "Text Description",
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 0,
+                            fontFamily: 'Poppins',
+                            fontSize: height/27,
+                          ),
+                        ),
+                        SizedBox(
+                          height: height/20,
+                        ),
+                        Theme(
+                          data: new ThemeData(
+                            primaryColor: Colors.redAccent,
+                          ),
+                          child: TextField(
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderSide:  BorderSide(color: Colors.redAccent)
+                              ),
+                              labelText: 'click here',
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: height/16,
+                        ),
+                        Material(
+                          elevation: 0,
+                          child: MaterialButton(
+                            onPressed: () {
+                              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {return Upload();}), ModalRoute.withName('/'));
+                            },
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(40),
+                            ),
+                            height: height/12,minWidth: width/1.3,
+                            child: Text(
+                              'Confirm',
+                              style: TextStyle(
+                                  fontFamily: "Poppins",
+                                  color: Colors.white,
+                                  fontSize: height/35),
+                            ),
+                            splashColor: Colors.redAccent,
+                            color: Colors.redAccent,
+                          ),
+                        ),
+                      ]),
+                ),
+              ),
+            )
+          ],
+        )
+    );
   }
 }
 

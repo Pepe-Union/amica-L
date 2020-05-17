@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:chat_app_example/FirebaseAuth.dart';
 import 'package:chat_app_example/plugins_utils/database.dart';
 import 'package:chat_app_example/views/faceid.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -20,7 +21,7 @@ class CustomButton extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(8.0),
       child: Material(
-        color: Colors.red,
+        color: Colors.redAccent,
         elevation: 0.0,
         borderRadius: BorderRadius.circular(30.0),
         child: MaterialButton(
@@ -87,95 +88,119 @@ class _RegistrationState extends State<Registration> {
 
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Text(
-                  "Sign Up using email address",
-                  style: TextStyle(fontFamily: 'Poppins', fontSize: 30),
-                )),
-            Padding(
-                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                child: Text(
-                  "Name",
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
+      body: ListView(
+        children: <Widget>[
+          SafeArea(
+            child: Padding(
+              padding: EdgeInsets.all(height/30),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  SizedBox(
+                    height: height/20,
                   ),
-                )),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-              child: TextField(
-                keyboardType: TextInputType.text,
-                onChanged: (value) => username = value,
-                decoration: InputDecoration(
-                    hintText: "Ab C",
-                    hintStyle:
-                    TextStyle(color: Colors.tealAccent, fontSize: 18)),
+                  Align(alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Sign Up",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Poppins',
+                        fontSize: height/27,
+                      ),
+                    ),
+                  ),SizedBox(
+                    height: height/20,
+                  ),
+                  Align(alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Name",
+                      style: TextStyle(
+                          letterSpacing: 0,
+                          fontSize: height/32,
+                          fontFamily: 'Poppins1',
+                          color: Colors.grey[600]),
+                    ),
+                  ),
+                  Align(alignment: Alignment.centerLeft,
+                    child: TextField(
+                      keyboardType: TextInputType.text,cursorColor: Colors.redAccent,
+                      onChanged: (value) => username = value,
+                      decoration: InputDecoration(focusColor: Colors.redAccent,
+                          hintText: "Ab C",
+                          hintStyle:
+                          TextStyle(color: Colors.black, fontSize: 18)),
+                    ),
+                  ),SizedBox(
+                    height: height/20,
+                  ),
+                  Align(alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Email Address",
+                      style: TextStyle(
+                          letterSpacing: 0,
+                          fontSize: height/32,
+                          fontFamily: 'Poppins1',
+                          color: Colors.grey[600]),
+                    ),
+                  ),
+                  Align(alignment: Alignment.centerLeft,
+                    child: TextField(cursorColor: Colors.redAccent,
+                      keyboardType: TextInputType.text,
+                      onChanged: (value) => email = value,
+                      decoration: InputDecoration(focusColor: Colors.redAccent,
+                          hintText: "abc@email.com",
+                          hintStyle:
+                          TextStyle(color: Colors.black, fontSize: 18)),
+                    ),
+                  ),SizedBox(
+                    height: height/20,
+                  ),
+                  Align(alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Password",
+                      style: TextStyle(
+                          letterSpacing: 0,
+                          fontSize: height/32,
+                          fontFamily: 'Poppins1',
+                          color: Colors.grey[600]),
+                    ),
+                  ),
+                  Align(alignment: Alignment.centerLeft,
+                    child: TextField(cursorColor: Colors.redAccent,
+                      autocorrect: false,
+                      obscureText: true,
+                      onChanged: (value) => password = value,
+                      decoration: InputDecoration(focusColor: Colors.redAccent,
+                          hintText: "Password",
+                          hintStyle:
+                          TextStyle(color: Colors.black, fontSize: 18)),
+                    ),
+                  ),SizedBox(
+                    height: height/20,
+                  ),
+                  CustomButton(
+                    text: "Continue",
+                    callback: () async {
+
+                      await signUp(email, password);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Imformation(),
+                        ),
+                      );
+
+                    },
+                  ),
+                ],
               ),
             ),
-
-
-            Padding(
-                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                child: Text(
-                  "Email Address",
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
-                  ),
-                )),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-              child: TextField(
-                keyboardType: TextInputType.text,
-                onChanged: (value) => email = value,
-                decoration: InputDecoration(
-                    hintText: "abc@email.com",
-                    hintStyle:
-                    TextStyle(color: Colors.tealAccent, fontSize: 18)),
-              ),
-            ),
-            Padding(
-                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                child: Text(
-                  "Password",
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
-                  ),
-                )),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-              child: TextField(
-                autocorrect: false,
-                obscureText: true,
-                onChanged: (value) => password = value,
-                decoration: InputDecoration(
-                    hintText: "Password",
-                    hintStyle:
-                    TextStyle(color: Colors.tealAccent, fontSize: 18)),
-              ),
-            ),
-            CustomButton(
-              text: "Register",
-              callback: () async {
-
-                await signUp(email, password);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Imformation(),
-                  ),
-                );
-
-              },
-            ),
-          ],
-        ),
-      ),
+          ),
+        ],
+      )
 
     );
   }
@@ -209,100 +234,116 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          SizedBox(
-            height: 40.0,
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-              top: 40,
-            ),
-            child: Text(
-              "Log In With email address",
-              style: TextStyle(
-                letterSpacing: 2,
-                fontFamily: 'Poppins',
-                fontSize: 30,
+    body: ListView(
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.all(height/30),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              SizedBox(
+                height: height/20,
               ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-            child: Text(
-              "Email Address",
-              style: TextStyle(
-                  letterSpacing: 0,
-                  fontFamily: 'Poppins1',
-                  color: Colors.black),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: TextField(
-              keyboardType: TextInputType.emailAddress,
-              onChanged: (value) => email = value,
-              decoration: InputDecoration(
-                hintText: 'abc@email.com',
+              Align(alignment: Alignment.centerLeft,
+                child: Text(
+                  "Log in with Email address",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Poppins',
+                    fontSize: height/27,
+                  ),
+                ),
+              ),SizedBox(
+                height: height/20,
               ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            child: Text(
-              "Password",
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                  letterSpacing: 0,
-                  fontFamily: 'Poppins1',
-                  color: Colors.black),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: TextField(
-              autocorrect: false,
-              obscureText: true,
-              onChanged: (value) => password = value,
-              decoration: InputDecoration(
-                hintText: "Password",
+              Align(alignment: Alignment.centerLeft,
+                child: Text(
+                  "Email Address",
+                  style: TextStyle(
+                      letterSpacing: 0,
+                      fontSize: height/32,
+                      fontFamily: 'Poppins1',
+                      color: Colors.grey[600]),
+                ),
               ),
-            ),
+              Align(alignment: Alignment.centerLeft,
+                child: TextField(cursorColor: Colors.redAccent,
+                  keyboardType: TextInputType.emailAddress,
+                  onChanged: (value) => email = value,
+                  decoration: InputDecoration(focusColor: Colors.redAccent,
+                    hintText: 'abc@email.com',
+                  ),
+                ),
+              ),SizedBox(
+                height: height/20,
+              ),
+              Align(alignment: Alignment.centerLeft,
+                child: Text(
+                  "Password",
+                  textAlign: TextAlign.left,
+
+                  style: TextStyle(
+                      letterSpacing: 0,
+                      fontFamily: 'Poppins1',
+                      fontSize: height/32,
+                      color: Colors.grey[600]),
+                ),
+              ),
+              Align(alignment: Alignment.centerLeft,
+                child: TextField(cursorColor: Colors.redAccent,
+                  autocorrect: false,
+                  obscureText: true,
+                  onChanged: (value) => password = value,
+                  decoration: InputDecoration(focusColor: Colors.redAccent,
+                    hintText: "Password",
+                  ),
+                ),
+              ),
+              Align(alignment: Alignment.centerRight,
+                child: Text(
+                  "Forgot Password",
+                  textAlign: TextAlign.right,
+                  style: TextStyle(
+                      letterSpacing: 0,
+                      fontFamily: 'Poppins1',
+                      color: Colors.black,
+                      fontSize: 15),
+                ),
+              ),SizedBox(
+                height: height/20,
+              ),
+              CustomButton(
+                text: "Continue",
+                callback: () async {
+                  await loginUser();
+                },
+              ),SizedBox(
+                height: height/20,
+              ),
+              Align(alignment: Alignment.center,
+                child: Text(
+                  "New user?",
+                  style: TextStyle(
+                      letterSpacing: 0,
+                      fontSize: height/32,
+                      fontFamily: 'Poppins1',
+                      color: Colors.grey[600]),
+                ),
+              ),
+              CustomButton(
+                text: "Sign Up",
+                callback: () {
+                  Navigator.of(context).pushNamed(Registration.id);
+                },
+              )
+            ],
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Text(
-              "Forgot Password",
-              textAlign: TextAlign.right,
-              style: TextStyle(
-                  letterSpacing: 0,
-                  fontFamily: 'Poppins1',
-                  color: Colors.black,
-                  fontSize: 15),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 40),
-            child: CustomButton(
-              text: "Log In",
-              callback: () async {
-                await loginUser();
-              },
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 40),
-            child: CustomButton(
-              text: "Sign Up",
-              callback: () {
-                Navigator.of(context).pushNamed(Registration.id);
-              },
-            ),
-          )
-        ],
-      ),
+        ),
+      ],
+    )
     );
   }
 }
@@ -321,141 +362,155 @@ class _GenderState extends State<Gender> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: <Widget>[
-          SizedBox(
-            height: 25,
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
+    return Scaffold(backgroundColor: Colors.white,
+        appBar: AppBar(elevation: 0,
+          leading: IconButton(
+            icon: Icon(Icons.keyboard_backspace),
+            color: Colors.red,
+            onPressed: () {
+              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {return Imformation();}), ModalRoute.withName('/'));
+            },
           ),
-          Padding(
-            padding: EdgeInsets.only(
-                top: 100,right: 100
-            ),
-            child: Text(
-              "Gender Details",
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                letterSpacing: 0,
-                fontFamily: 'Poppins',
-                fontSize: 30,
+          backgroundColor: Colors.white,
+        ),
+    body: ListView(
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.all(height/30),
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                height: height/20,
               ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 10,right: 250),
-            child: Text(
-              "Your Gender",
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                  letterSpacing: 0, fontFamily: 'Poppins', color: Colors.grey[700]),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top:10),
-            child: Center(
-              child: Container(
-                width: 375,
-                child: Card(
-                  color: Colors.redAccent,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
-                  child: Center(
-                    child: DropdownButton<String>(iconEnabledColor: Colors.white,
-                        isExpanded: true,
-                        items: gender.map((String drop) {
-                          return DropdownMenuItem<String>(
-                            value: drop,
-                            child: Text("  $drop",
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  fontFamily: 'Poppins2',
-                                  color: Colors.black),
-                            ),
-                          );
-                        }).toList(),
-                        value: Gender.currentItem1,
-                        onChanged: (String newValue) {
-                          setState(() {
-                            Gender.currentItem1 = newValue;
-
-                          });
-                        }),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 40,right: 250),
-            child: Text(
-              "Intrested in",
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                  letterSpacing: 0, fontFamily: 'Poppins', color: Colors.grey[700]),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top:10),
-            child: Center(
-              child: Container(
-                width: 375,
-                child: Card(
-                  color: Colors.redAccent,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
-                  child: Center(
-                    child: DropdownButton<String>(iconEnabledColor: Colors.white,
-                        isExpanded: true,
-                        items: gender.map((String drop) {
-                          return DropdownMenuItem<String>(
-                            value: drop,
-                            child: Text("  $drop",
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  fontFamily: 'Poppins2',
-                                  color: Colors.black),
-                            ),
-                          );
-                        }).toList(),
-                        value: Gender.currentItem,
-                        onChanged: (String newValue) {
-                          setState(() {
-                            Gender.currentItem= newValue;
-
-                          });
-                        }),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 100,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            child: Material(
-              elevation: 0,
-              child: MaterialButton(
-                onPressed: () {
-                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {return FacePage();}), ModalRoute.withName('/'));
-                },
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40),
-                ),
-                height: 55.0,
-                minWidth: 320,
+              Align(alignment: Alignment.centerLeft,
                 child: Text(
-                  'Continue',
+                  "Gender Details",
+                  textAlign: TextAlign.left,
                   style: TextStyle(
-                      fontFamily: "Poppins", color: Colors.white, fontSize: 20),
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0,
+                    fontFamily: 'Poppins',
+                    fontSize: 30,
+                  ),
                 ),
-                splashColor: Colors.white,
-                color: Colors.redAccent,
+              ),SizedBox(
+                height: height/20,
               ),
-            ),
+              Align(alignment: Alignment.centerLeft,
+                child: Text(
+                  "Your Gender",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(fontSize: height/32,
+                      letterSpacing: 0, fontFamily: 'Poppins', color: Colors.grey[600]),
+                ),
+              ),
+              Center(
+                child: Container(
+                  width: 375,
+                  child: Theme(data: ThemeData(canvasColor: Colors.redAccent),
+                    child: Card(
+                      color: Colors.redAccent,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Center(
+                        child: DropdownButton<String>(iconEnabledColor: Colors.white,
+                            isExpanded: true,
+                            items: gender.map((String drop) {
+                              return DropdownMenuItem<String>(
+                                value: drop,
+                                child: Text("  $drop",
+                                  style: TextStyle(
+                                      fontSize: height/35,
+                                      fontFamily: 'Poppins2',
+                                      color: Colors.white),
+                                ),
+                              );
+                            }).toList(),
+                            value: Gender.currentItem1,
+                            onChanged: (String newValue) {
+                              setState(() {
+                                Gender.currentItem1 = newValue;
+
+                              });
+                            }),
+                      ),
+                    ),
+                  ),
+                ),
+              ),SizedBox(
+                height: height/20,
+              ),
+              Align(alignment: Alignment.centerLeft,
+                child: Text(
+                  "Intrested in",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(fontSize: height/32,
+                      letterSpacing: 0, fontFamily: 'Poppins', color: Colors.grey[600]),
+                ),
+              ),
+              Center(
+                child: Container(
+                  width: 375,
+                  child: Theme(data: ThemeData(canvasColor: Colors.redAccent),
+                    child: Card(
+                      color: Colors.redAccent,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Center(
+                        child: DropdownButton<String>(iconEnabledColor: Colors.white,
+                            isExpanded: true,
+                            items: gender.map((String drop) {
+                              return DropdownMenuItem<String>(
+                                value: drop,
+                                child: Text("  $drop",
+                                  style: TextStyle(
+                                      fontSize: height/35,
+                                      fontFamily: 'Poppins2',
+                                      color: Colors.white),
+                                ),
+                              );
+                            }).toList(),
+                            value: Gender.currentItem,
+                            onChanged: (String newValue) {
+                              setState(() {
+                                Gender.currentItem= newValue;
+
+                              });
+                            }),
+                      ),
+                    ),
+                  ),
+                ),
+              ), SizedBox(
+                height: height/15,
+              ),
+              Material(
+                elevation: 0,
+                child: MaterialButton(
+                  onPressed: () {
+                    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {return FacePage();}), ModalRoute.withName('/'));
+                  },
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                  height: 55.0,
+                  minWidth: 320,
+                  child: Text(
+                    'Continue',
+                    style: TextStyle(
+                        fontFamily: "Poppins", color: Colors.white, fontSize: 20),
+                  ),
+                  splashColor: Colors.white,
+                  color: Colors.redAccent,
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
+    )
     );
   }
 }
@@ -514,154 +569,139 @@ class _ImformationState extends State<Imformation> {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    return Scaffold(
-      body: SafeArea(
-        child:Padding(
-          padding: EdgeInsets.all(height/30),
-          child: Column(
-            children: <Widget>[
-              Align(alignment: Alignment.centerLeft,
-                child: Text(
-                  "Profile details",
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontSize: height/25,
-                  ),
-                ),
-              ),
-              SizedBox(height: height/30,),
-              Align(alignment: Alignment.centerLeft,
-                child: Text(
-                  "Email Address",
-                  style: TextStyle(
-                      letterSpacing: 0,
-                      fontFamily: 'Poppins1',
-                      color: Colors.grey[700]),
-                ),
-              ),
-              Theme(
-              data: new ThemeData(
-                primaryColor: Colors.redAccent,),
-                child: TextField(
-                keyboardType: TextInputType.emailAddress,
-                onChanged: (value) => email = value,
-                decoration: InputDecoration(
-                  hintText: 'abc@email.com',
-                ),
-              ),),SizedBox(height: height/40,),
-              Align(alignment: Alignment.centerLeft,
-                child: Text(
-                  "Full name",
-                  style: TextStyle(
-                      letterSpacing: 0,
-                      fontFamily: 'Poppins1',
-                      color: Colors.grey[700]),
-                ),
-              ),
-              Theme(
-                data: new ThemeData(
-                  primaryColor: Colors.redAccent,),
-                child: TextField(
-                  keyboardType: TextInputType.text,
-                  onChanged: (value) => name = value,
-
-                ),),SizedBox(height: height/40,),
-              Align(alignment: Alignment.centerLeft,
-                child: Text(
-                  "Birthday",
-                  style: TextStyle(
-                      letterSpacing: 0,
-                      fontFamily: 'Poppins1',
-                      color: Colors.grey[700]),
-                ),
-              ),
-              Theme(
-                data: new ThemeData(
-                  primaryColor: Colors.redAccent,),
-                child: TextField(
-                  keyboardType: TextInputType.datetime,
-                  onChanged: (value) =>  dob= value,
-                  decoration: InputDecoration(
-                    hintText: 'dd/mm/yyyy',
-                  ),
-                ),),SizedBox(height: height/40,),
-              Align(alignment: Alignment.centerLeft,
-                child: Text(
-                  "City",
-                  style: TextStyle(
-                      letterSpacing: 0,
-                      fontFamily: 'Poppins1',
-                      color: Colors.grey[700]),
-                ),
-              ),
-              Theme(
-                data: new ThemeData(
-                  primaryColor: Colors.redAccent,),
-                child: TextField(
-                  keyboardType: TextInputType.text,
-                  onChanged: (value) =>  city= value,
-
-                ),),SizedBox(height: height/40,),
-              Align(alignment: Alignment.centerLeft,
-                child: Text(
-                  "State",
-                  style: TextStyle(
-                      letterSpacing: 0,
-                      fontFamily: 'Poppins1',
-                      color: Colors.grey[700]),
-                ),
-              ),
-              Theme(
-                data: new ThemeData(
-                  primaryColor: Colors.redAccent,),
-                child: TextField(
-                  keyboardType: TextInputType.text,
-                  onChanged: (value) => state = value,
-                ),),SizedBox(height: height/40,),
-              Align(alignment: Alignment.centerLeft,
-                child: Text(
-                  "Country",
-                  style: TextStyle(
-                      letterSpacing: 0,
-                      fontFamily: 'Poppins1',
-                      color: Colors.grey[700]),
-                ),
-              ),
-              Theme(
-                data: new ThemeData(
-                  primaryColor: Colors.redAccent,),
-                child: TextField(
-                  keyboardType: TextInputType.text,
-                  onChanged: (value) => country = value,
-                ),),SizedBox(height: height/40,),
-              Material(
-                elevation: 0,
-                child: MaterialButton(
-                  onPressed: () {
-
-                    Navigator.pushNamed(context, Gender.id);
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40),
-                  ),
-                  height: 55.0,
-                  minWidth: 320,
+    return Scaffold(backgroundColor: Colors.white,
+        appBar: AppBar(elevation: 0,
+          leading: IconButton(
+            icon: Icon(Icons.keyboard_backspace),
+            color: Colors.red,
+            onPressed: () {
+              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {return LoginPage();}), ModalRoute.withName('/'));
+            },
+          ),
+          backgroundColor: Colors.white,
+        ),
+    body: ListView(
+      children: <Widget>[
+        SafeArea(
+          child:Padding(
+            padding: EdgeInsets.all(height/30),
+            child: Column(
+              children: <Widget>[
+                Align(alignment: Alignment.centerLeft,
                   child: Text(
-                    'Continue',
+                    "Profile details",
                     style: TextStyle(
-                        fontFamily: "Poppins", color: Colors.white, fontSize: 20),
+                      fontFamily: 'Poppins',
+                      fontSize: height/25,
+                    ),
                   ),
-                  splashColor: Colors.white,
-                  color: Colors.redAccent,
                 ),
-              ),
+                SizedBox(height: height/30,),
+                Align(alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Email Address",
+                    style: TextStyle(
+                        letterSpacing: 0,
+                        fontFamily: 'Poppins1',
+                        color: Colors.grey[700]),
+                  ),
+                ),
+                Theme(
+                  data: new ThemeData(
+                    primaryColor: Colors.redAccent,),
+                  child: TextField(
+                    keyboardType: TextInputType.emailAddress,
+                    onChanged: (value) => email = value,
+                    decoration: InputDecoration(
+                      hintText: 'abc@email.com',
+                    ),
+                  ),),SizedBox(height: height/40,),
+                Align(alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Full name",
+                    style: TextStyle(
+                        letterSpacing: 0,
+                        fontFamily: 'Poppins1',
+                        color: Colors.grey[700]),
+                  ),
+                ),
+                Theme(
+                  data: new ThemeData(
+                    primaryColor: Colors.redAccent,),
+                  child: TextField(
+                    keyboardType: TextInputType.text,
+                    onChanged: (value) => name = value,
 
+                  ),),SizedBox(height: height/40,),
+                Align(alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Birthday",
+                    style: TextStyle(
+                        letterSpacing: 0,
+                        fontFamily: 'Poppins1',
+                        color: Colors.grey[700]),
+                  ),
+                ),
+                Theme(
+                  data: new ThemeData(
+                    primaryColor: Colors.redAccent,),
+                  child: TextField(
+                    keyboardType: TextInputType.datetime,
+                    onChanged: (value) =>  dob= value,
+                    decoration: InputDecoration(
+                      hintText: 'dd/mm/yyyy',
+                    ),
+                  ),),SizedBox(height: height/40,),
+                Material(
+                  elevation: 0,
+                  child: MaterialButton(
+                    onPressed: () {
+                      setState(() {
+                        a=Colors.blue;
+                        _getCurrentLocation();
+                      });
+                    },
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    height: 55.0,
+                    minWidth: 320,
+                    child: Text(
+                      'Location',
+                      style: TextStyle(
+                          fontFamily: "Poppins", color: Colors.white, fontSize: 20),
+                    ),
+                    splashColor: Colors.white,
+                    color: a,
+                  ),
+                ),SizedBox(height: height/40,),
+                Material(
+                  elevation: 0,
+                  child: MaterialButton(
+                    onPressed: () {
 
-
-            ],
+                      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {return Gender();}), ModalRoute.withName('/'));
+                    },
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    height: 55.0,
+                    minWidth: 320,
+                    child: Text(
+                      'Continue',
+                      style: TextStyle(
+                          fontFamily: "Poppins", color: Colors.white, fontSize: 20),
+                    ),
+                    splashColor: Colors.white,
+                    color: Colors.redAccent,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
-      ),
+      ],
+    )
     );
   }
 

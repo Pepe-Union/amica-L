@@ -40,286 +40,297 @@ class _UploadState extends State<Upload> {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    return Scaffold(
-      body: Container(
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-              height: height/12,
-            ),Padding(
-              padding: EdgeInsets.only(right: width/2),
-              child: Text(
-                "Add photos",textAlign: TextAlign.start,
-                style: TextStyle(
-                  letterSpacing: 0,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.bold,
-                  fontSize: height/27,
-                ),
-              ),
-            ),Padding(
-              padding: EdgeInsets.only(right: width/3.2, top: height/30, left: width/10),
-              child: Text(
-                "Hold, drag & drop to reorder images.",
-                style: TextStyle(
-                    letterSpacing: 0,
-                    fontFamily: 'Poppins2',
-                    fontSize: 15,
-                    color: Colors.black),
-              ),
-            ),
-            SizedBox(height: height/40,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                InkWell(
-                  borderRadius: BorderRadius.circular(30),
-                  child: _uploadedFileURL != null
-                      ? Container(
-                    height: height/5,
-                    width: width/3.6,
-                    child: Image.network(
-                      _uploadedFileURL,
-                      fit: BoxFit.cover,
-                    ),
-                  )
-                      : Container(
-                      height: height/5,
-                      width: width/3.6,color: Colors.grey[400],
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.add,
-                          size: 100,
-                        ),
-                      )),
-                  onTap: chooseFile,
-                ),
-
-                Hero(
-                  tag: "a1",
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(10),
-                    child: _uploadedFileURL1 != null
-                        ? Container(
-                      height: height/5,
-                      width: width/3.6,
-                      child: Image.network(
-                        _uploadedFileURL1,
-                        fit: BoxFit.cover,
-                      ),
-                    )
-                        : Container(
-                        height: height/5,
-                        width: width/3.6,color: Colors.grey[400],
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.add,
-                            size: 100,
-                          ),
-                        )),
-                    onTap: chooseFile1,
-                  ),
-                ),InkWell(
-                  borderRadius: BorderRadius.circular(10),
-                  child: _uploadedFileURL2 != null
-                      ? Container(
-                    height: height/5,
-                    width: width/3.6,
-                    child: Image.network(
-                      _uploadedFileURL2,
-                      fit: BoxFit.cover,
-                    ),
-                  )
-                      : Container(
-                      height: height/5,
-                      width: width/3.6,color: Colors.grey[400],
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.add,
-                          size: 100,
-                        ),
-                      )),
-                  onTap: chooseFile2,
-                ),
-              ],
-            )
-            ,SizedBox(height: 10,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                InkWell(
-                  borderRadius: BorderRadius.circular(10),
-                  child: _uploadedFileURL3 != null
-                      ? Container(
-                    height: height/5,
-                    width: width/3.6,
-                    child: Image.network(
-                      _uploadedFileURL3,
-                      fit: BoxFit.cover,
-                    ),
-                  )
-                      : Container(
-                      height: height/5,
-                      width: width/3.6,color: Colors.grey[400],
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.add,
-                          size: 100,
-                        ),
-                      )),
-                  onTap: chooseFile3,
-                ),
-
-                Hero(
-                  tag: "a2",
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(10),
-                    child: _uploadedFileURL4 != null
-                        ? Container(
-                      height: height/5,
-                      width: width/3.6,
-                      child: Image.network(
-                        _uploadedFileURL4,
-                        fit: BoxFit.cover,
-                      ),
-                    )
-                        : Container(
-                        height: height/5,
-                        width: width/3.6,color: Colors.grey[400],
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.add,
-                            size: 100,
-                          ),
-                        )),
-                    onTap: chooseFile4,
-                  ),
-                ),InkWell(
-                  borderRadius: BorderRadius.circular(10),
-                  child: _uploadedFileURL5 != null
-                      ? Container(
-                    height: height/5,
-                    width: width/3.6,
-                    child: Image.network(
-                      _uploadedFileURL5,
-                      fit: BoxFit.cover,
-                    ),
-                  )
-                      : Container(
-                      height: height/5,
-                      width: width/3.6,color: Colors.grey[400],
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.add,
-                          size: 100,
-                        ),
-                      )),
-                  onTap: chooseFile5,
-                ),
-              ],
-            ),
-            SizedBox(height: 10,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                InkWell(
-                  borderRadius: BorderRadius.circular(10),
-                  child: _uploadedFileURL6 != null
-                      ? Container(
-                    height: height/5,
-                    width: width/3.6,
-                    child: Image.network(
-                      _uploadedFileURL6,
-                      fit: BoxFit.cover,
-                    ),
-                  )
-                      : Container(
-                      height: height/5,
-                      width: width/3.6,color: Colors.grey[400],
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.add,
-                          size: 100,
-                        ),
-                      )),
-                  onTap: chooseFile6,
-                ),
-
-
-                InkWell(
-                  borderRadius: BorderRadius.circular(10),
-                  child: _uploadedFileURL7 != null
-                      ? Container(
-                    height: height/5,
-                    width: width/3.6,
-                    child: Image.network(
-                      _uploadedFileURL7,
-                      fit: BoxFit.cover,
-                    ),
-                  )
-                      : Container(
-                      height: height/5,
-                      width: width/3.6,color: Colors.grey[400],
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.add,
-                          size: 100,
-                        ),
-                      )),
-                  onTap: chooseFile7,
-                ),
-
-                InkWell(
-                  borderRadius: BorderRadius.circular(10),
-                  child: _uploadedFileURL8 != null
-                      ? Container(
-                    height: height/5,
-                    width: width/3.6,
-                    child: Image.network(
-                      _uploadedFileURL8,
-                      fit: BoxFit.cover,
-                    ),
-                  )
-                      : Container(
-                      height: height/5,
-                      width: width/3.6,color: Colors.grey[400],
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.add,
-                          size: 100,
-                        ),
-                      )),
-                  onTap: chooseFile8,
-                ),
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 25),
-              child: Material(
-                elevation: 0,
-                child: MaterialButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, MyHomePage.id);
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40),
-                  ),
-                  height: height/12,minWidth: width/1.3,
-                  child: Text(
-                    'Done',
-                    style: TextStyle(
-                        fontFamily: "Poppins",
-                        color: Colors.white,
-                        fontSize: 17),
-                  ),
-                  splashColor: Colors.red,
-                  color: Colors.redAccent,
-                ),
-              ),
-            ),
-          ],
+    return Scaffold(backgroundColor: Colors.white,
+        appBar: AppBar(elevation: 0,
+          leading: IconButton(
+            icon: Icon(Icons.keyboard_backspace),
+            color: Colors.red,
+            onPressed: () {
+              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {return TextDesc();}), ModalRoute.withName('/'));
+            },
+          ),
+          backgroundColor: Colors.white,
         ),
-      ),
+      body: ListView(
+        children: <Widget>[
+          Padding(
+            padding:  EdgeInsets.all(height/40),
+            child: Column(
+              children: <Widget>[
+                SizedBox(
+                  height: height/20,
+                ),
+                Align(alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Add photos",textAlign: TextAlign.start,
+                    style: TextStyle(
+                      letterSpacing: 0,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.bold,
+                      fontSize: height/27,
+                    ),
+                  ),
+                ),SizedBox(height: height/30,),
+                Align(alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Hold, drag & drop to reorder images.",
+                    style: TextStyle(
+                        letterSpacing: 0,
+                        fontFamily: 'Poppins2',
+                        fontSize: 15,
+                        color: Colors.black),
+                  ),
+                ),
+                SizedBox(height: height/40,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    InkWell(
+                      borderRadius: BorderRadius.circular(30),
+                      child: _uploadedFileURL != null
+                          ? Container(
+                        height: height/6,
+                        width: width/3.6,
+                        child: Image.network(
+                          _uploadedFileURL,
+                          fit: BoxFit.cover,
+                        ),
+                      )
+                          : Container(
+                          height: height/6,
+                          width: width/3.6,color: Colors.grey[400],
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.add,
+                              size: 100,
+                            ),
+                          )),
+                      onTap: chooseFile,
+                    ),
+
+                    Hero(
+                      tag: "a1",
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(10),
+                        child: _uploadedFileURL1 != null
+                            ? Container(
+                          height: height/6,
+                          width: width/3.6,
+                          child: Image.network(
+                            _uploadedFileURL1,
+                            fit: BoxFit.cover,
+                          ),
+                        )
+                            : Container(
+                            height: height/6,
+                            width: width/3.6,color: Colors.grey[400],
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.add,
+                                size: 100,
+                              ),
+                            )),
+                        onTap: chooseFile1,
+                      ),
+                    ),InkWell(
+                      borderRadius: BorderRadius.circular(10),
+                      child: _uploadedFileURL2 != null
+                          ? Container(
+                        height: height/6,
+                        width: width/3.6,
+                        child: Image.network(
+                          _uploadedFileURL2,
+                          fit: BoxFit.cover,
+                        ),
+                      )
+                          : Container(
+                          height: height/6,
+                          width: width/3.6,color: Colors.grey[400],
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.add,
+                              size: 100,
+                            ),
+                          )),
+                      onTap: chooseFile2,
+                    ),
+                  ],
+                ),SizedBox(height: height/40,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    InkWell(
+                      borderRadius: BorderRadius.circular(10),
+                      child: _uploadedFileURL3 != null
+                          ? Container(
+                        height: height/6,
+                        width: width/3.6,
+                        child: Image.network(
+                          _uploadedFileURL3,
+                          fit: BoxFit.cover,
+                        ),
+                      )
+                          : Container(
+                          height: height/6,
+                          width: width/3.6,color: Colors.grey[400],
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.add,
+                              size: 100,
+                            ),
+                          )),
+                      onTap: chooseFile3,
+                    ),
+
+                    Hero(
+                      tag: "a2",
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(10),
+                        child: _uploadedFileURL4 != null
+                            ? Container(
+                          height: height/6,
+                          width: width/3.6,
+                          child: Image.network(
+                            _uploadedFileURL4,
+                            fit: BoxFit.cover,
+                          ),
+                        )
+                            : Container(
+                            height: height/6,
+                            width: width/3.6,color: Colors.grey[400],
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.add,
+                                size: 100,
+                              ),
+                            )),
+                        onTap: chooseFile4,
+                      ),
+                    ),
+                    InkWell(
+                      borderRadius: BorderRadius.circular(10),
+                      child: _uploadedFileURL5 != null
+                          ? Container(
+                        height: height/6,
+                        width: width/3.6,
+                        child: Image.network(
+                          _uploadedFileURL5,
+                          fit: BoxFit.cover,
+                        ),
+                      )
+                          : Container(
+                          height: height/6,
+                          width: width/3.6,color: Colors.grey[400],
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.add,
+                              size: 100,
+                            ),
+                          )),
+                      onTap: chooseFile5,
+                    ),
+                  ],
+                ),SizedBox(height: height/40,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    InkWell(
+                      borderRadius: BorderRadius.circular(10),
+                      child: _uploadedFileURL6 != null
+                          ? Container(
+                        height: height/6,
+                        width: width/3.6,
+                        child: Image.network(
+                          _uploadedFileURL6,
+                          fit: BoxFit.cover,
+                        ),
+                      )
+                          : Container(
+                          height: height/6,
+                          width: width/3.6,color: Colors.grey[400],
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.add,
+                              size: 100,
+                            ),
+                          )),
+                      onTap: chooseFile6,
+                    ),
+
+
+                    InkWell(
+                      borderRadius: BorderRadius.circular(10),
+                      child: _uploadedFileURL7 != null
+                          ? Container(
+                        height: height/6,
+                        width: width/3.6,
+                        child: Image.network(
+                          _uploadedFileURL7,
+                          fit: BoxFit.cover,
+                        ),
+                      )
+                          : Container(
+                          height: height/6,
+                          width: width/3.6,color: Colors.grey[400],
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.add,
+                              size: 100,
+                            ),
+                          )),
+                      onTap: chooseFile7,
+                    ),
+
+                    InkWell(
+                      borderRadius: BorderRadius.circular(10),
+                      child: _uploadedFileURL8 != null
+                          ? Container(
+                        height: height/6,
+                        width: width/3.6,
+                        child: Image.network(
+                          _uploadedFileURL8,
+                          fit: BoxFit.cover,
+                        ),
+                      )
+                          : Container(
+                          height: height/6,
+                          width: width/3.6,color: Colors.grey[400],
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.add,
+                              size: 100,
+                            ),
+                          )),
+                      onTap: chooseFile8,
+                    ),
+                  ],
+                ),SizedBox(height: height/20,),
+                Material(
+                  elevation: 0,
+                  child: MaterialButton(
+                    onPressed: () {
+                      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {return MyHome();}), ModalRoute.withName('/'));
+                    },
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    height: height/12,minWidth: width/1.3,
+                    child: Text(
+                      'Done',
+                      style: TextStyle(
+                          fontFamily: "Poppins",
+                          color: Colors.white,
+                          fontSize: 17),
+                    ),
+                    splashColor: Colors.red,
+                    color: Colors.redAccent,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      )
     );
   }
 

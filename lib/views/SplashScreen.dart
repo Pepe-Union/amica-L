@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:chat_app_example/services/authservice.dart';
 import 'package:flutter/material.dart';
 
 import '../FirebaseAuth.dart';
@@ -17,7 +18,7 @@ class SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     super.initState();
     Timer(Duration(seconds: 3),
-            () => {Navigator.pushNamed(context, LoginPage.id)});
+            () => {Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {return AuthService().handleAuth();}), ModalRoute.withName('/'))});
   }
 
   @override
